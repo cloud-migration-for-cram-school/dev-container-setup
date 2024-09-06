@@ -48,8 +48,43 @@ project-root/
 
 ### Necessary Settings
 
+#### docker
+
 To configure the index files, modify the `Dockerfile` file located in `docker/python`.
 
 ```Dockerfile
 CMD ["uvicorn", "<project.py>:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
+
+### Backend
+
+Please ensure that the environment variable file (`.env`) strictly follows Linux syntax. Create a `config` folder at the root level of the `backend` directory and store the API key there.
+
+#### Incorrect Example
+
+```plaintext
+.env
+MAPPING_FILE = backend\service\mapping.json
+API_PATH = \app\backend\config\api.json
+FOLDER_ID = ****************
+```
+
+#### Correct Example
+
+```plaintext
+.env
+MAPPING_FILE = backend/service/mapping.json
+API_PATH = /app/backend/config/api.json
+FOLDER_ID = ****************
+```
+
+#### Additional Notes
+
+- **Environment variable syntax:** Ensure that file paths use forward slashes (`/`), as is standard in Linux-based environments (including Docker containers). Avoid using backslashes (`\`), which are used in Windows paths.
+- **File locations:** The `MAPPING_FILE` and `API_PATH` should be relative to the application’s internal directory structure when running in a Docker container or Linux environment.
+- **API Key Storage:** Store the API key in the `config` directory, which should be created at the root of the `backend` folder. This keeps sensitive information separated from the rest of the codebase, ensuring better security practices.
+
+### Summary
+
+- **Paths must follow Linux conventions** with forward slashes `/`.
+- **Ensure proper file organization** by storing the API key and other sensitive files in the appropriate `config` directory.
