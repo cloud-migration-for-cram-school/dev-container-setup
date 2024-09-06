@@ -10,7 +10,8 @@ services:
       - ENV_FILE=.env
     volumes:
       - ./backend:/app
-      - ./backend/config/apitest-418907-1658bd7509d0.json:/app/backend/config/apitest-418907-1658bd7509d0.json  # JSONファイルをマウント
+      - ./backend/config/apitest-418907-1658bd7509d0.json:/app/backend/config/apitest-418907-1658bd7509d0.json
+      - ./backend/service/mapping.json:/app/backend/service/mapping.json
     ports:
       - "8000:8000"
 
